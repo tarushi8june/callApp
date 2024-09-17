@@ -9,7 +9,7 @@ function login({ route, navigation }: any) {
     const [showError, setShowError] = useState<boolean>(false)
 
     useEffect(() => {
-        
+        //props
             setMobileNo('')
             setPassword('')
             setUserName('')
