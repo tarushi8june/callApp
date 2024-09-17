@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
-import { Button, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { Pressable, TextInput } from "react-native-gesture-handler";
 
 
-function login({ route, navigation }: any) {
-    // const { fromLogin } = route.params;
+function vendorLogin({ route, navigation }: any) {
+
     const [mobileNo, setMobileNo] = useState();
     const [userName, setUserName] = useState();
     const [password, setPassword] = useState();
     const [showError, setShowError] = useState<boolean>(false)
-
-    // useEffect(() => {
-    //     if (fromLogin) {
-    //         setMobileNo(undefined)
-    //         setPassword(undefined)
-    //         setUserName(undefined)
-    //     }
-    // }, [fromLogin])
 
     useEffect(() => {
         console.log("password 3232", password)
@@ -92,9 +85,7 @@ function login({ route, navigation }: any) {
                         setShowError(false)
                         let data = {
                             userName: userName,
-                            mobileNo: mobileNo,
-                            password: password,
-                            fromCustomer: true
+                            mobileNo: mobileNo
                         }
                         navigation.navigate('homeScreen', {
                             data
@@ -104,18 +95,15 @@ function login({ route, navigation }: any) {
                 <Text style={styles.loginButtonTxt}>LOGIN</Text>
             </Pressable>
 
-            <Pressable onPress={() => {
-                navigation.navigate('vendorLogin')
-            }}>
+            <Pressable >
                 <Text style={styles.vendorTxt}>
                     or Login For Vendor
                 </Text>
             </Pressable>
         </View>
     )
-};
-
-export default login;
+}
+export default vendorLogin;
 const styles = StyleSheet.create({
     loginTxt: {
         color: 'black',
