@@ -3,19 +3,26 @@ import { ZegoUIKitPrebuiltCall, ONE_ON_ONE_VIDEO_CALL_CONFIG } from '@zegocloud/
 import { yourAppID, yourAppSign } from "../component/callingId";
 
 function callScreen({ route, navigation }: any) {
+    const{  number,
+        mobileNo}=route.params;
     return (
         <View style={styles.container}>
             <ZegoUIKitPrebuiltCall
                 appID={yourAppID}
-                appSign={yourAppSign}
-                userID={'anu'} // userID can be something like a phone number or the user id on your own user system. 
-                userName={'anu'}
-                callID={'anu'} // callID can be any unique string. 
+                appSign={yourAppSign} 
+                userID={mobileNo} // userID can be something like a phone number or the user id on your own user system. 
+                userName={number}
+                callID={number} // callID can be any unique string. 
 
                 config={{
                     // You can also use ONE_ON_ONE_VOICE_CALL_CONFIG/GROUP_VIDEO_CALL_CONFIG/GROUP_VOICE_CALL_CONFIG to make more types of calls.
                     ...ONE_ON_ONE_VIDEO_CALL_CONFIG,
-                    onCallEnd: (callID, reason, duration) => { navigation.navigate('homeScreen') },
+                    onCallEnd: (callID, reason, duration) => { navigation.navigate('homeScreen',{
+                        userName:'',
+                        mobileNo:'',
+                        password:'',
+                        fromCustomer:true
+                    }) },
                 }}
             />
         </View>

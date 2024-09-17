@@ -3,19 +3,19 @@ import { Button, Pressable, StyleSheet, Text, TextInput, View } from "react-nati
 
 
 function login({ route, navigation }: any) {
-    // const { fromLogin } = route.params;
-    const [mobileNo, setMobileNo] = useState();
-    const [userName, setUserName] = useState();
-    const [password, setPassword] = useState();
+    // const { fromLogout } = route.params;
+    const [mobileNo, setMobileNo] = useState('');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [showError, setShowError] = useState<boolean>(false)
 
-    // useEffect(() => {
-    //     if (fromLogin) {
-    //         setMobileNo(undefined)
-    //         setPassword(undefined)
-    //         setUserName(undefined)
-    //     }
-    // }, [fromLogin])
+    useEffect(() => {
+        
+            setMobileNo('')
+            setPassword('')
+            setUserName('')
+    
+    }, [route])
 
     useEffect(() => {
         console.log("password 3232", password)
@@ -48,6 +48,7 @@ function login({ route, navigation }: any) {
                         }}
                         placeholder="Type Your UserName"
                         maxLength={25}
+
                     />
                     {showError && renderError('Please Fill Username')}
                 </View>
@@ -90,14 +91,11 @@ function login({ route, navigation }: any) {
                         setShowError(true)
                     } else {
                         setShowError(false)
-                        let data = {
+                        navigation.navigate('homeScreen', {
                             userName: userName,
                             mobileNo: mobileNo,
                             password: password,
                             fromCustomer: true
-                        }
-                        navigation.navigate('homeScreen', {
-                            data
                         })
                     }
                 }}>
@@ -125,19 +123,22 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     inputStyle: {
-        height: 40,
+        height: 45,
         borderWidth: 1,
         borderColor: 'black',
         width: '80%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        color: 'black'
+
     },
     userNameField: {
-        height: 40,
+        height: 45,
         borderWidth: 1,
         borderColor: 'black',
         marginTop: 2,
         width: '80%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        color: 'black'
     },
     loginPress: {
         height: 40,

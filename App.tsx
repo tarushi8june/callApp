@@ -30,6 +30,8 @@ import {
 import login from './src/screens/login';
 import homeScreen from './src/screens/homeScreen';
 import vendorLogin from './src/screens/vendorLogin';
+import callGenerate from './src/screens/callGenerate';
+import callScreen from './src/screens/callScreen';
 
 
 function App(): React.JSX.Element {
@@ -65,6 +67,19 @@ function App(): React.JSX.Element {
           name="homeScreen"
           component={homeScreen}
           options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="callGenerate"
+          component={callGenerate}
+          options={{ presentation: 'modal', headerShown: false }} // Modal presentation style
+
+        />
+        <Stack.Screen
+          name="callScreen"
+          component={callScreen}
+          options={{ presentation: 'modal', headerShown: false }} // Modal presentation style
+
         />
 
 

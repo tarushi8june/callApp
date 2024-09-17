@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Pressable, TextInput } from "react-native-gesture-handler";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 
 function vendorLogin({ route, navigation }: any) {
@@ -29,7 +28,7 @@ function vendorLogin({ route, navigation }: any) {
 
     return (
         <View>
-            <Text style={styles.loginTxt}>Customer Login</Text>
+            <Text style={styles.loginTxt}>Vendor Login</Text>
             <View style={styles.inputView}>
                 <View style={styles.container}>
                     {renderTxt('Username')}
@@ -97,7 +96,7 @@ function vendorLogin({ route, navigation }: any) {
 
             <Pressable >
                 <Text style={styles.vendorTxt}>
-                    or Login For Vendor
+                    Go Back
                 </Text>
             </Pressable>
         </View>
@@ -113,19 +112,21 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     inputStyle: {
-        height: 40,
+        height: 45,
         borderWidth: 1,
         borderColor: 'black',
         width: '80%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        color:'black'
     },
     userNameField: {
-        height: 40,
+        height: 45,
         borderWidth: 1,
         borderColor: 'black',
         marginTop: 2,
         width: '80%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        color:'black'
     },
     loginPress: {
         height: 40,
