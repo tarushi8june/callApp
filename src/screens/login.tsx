@@ -3,7 +3,6 @@ import { Button, Pressable, StyleSheet, Text, TextInput, View } from "react-nati
 
 
 function login({ route, navigation }: any) {
-    // const { fromLogout } = route.params;
     const [mobileNo, setMobileNo] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
