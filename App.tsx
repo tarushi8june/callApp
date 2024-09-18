@@ -8,7 +8,7 @@
 
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
@@ -32,11 +32,9 @@ import homeScreen from './src/screens/homeScreen';
 import vendorLogin from './src/screens/vendorLogin';
 import callGenerate from './src/screens/callGenerate';
 import callScreen from './src/screens/callScreen';
-
+import messaging from '@react-native-firebase/messaging'
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
   const MyTheme = {
     ...DefaultTheme,
     colors: {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { displayeNotification } from "./notifee";
 
 function homeScreen({ route, navigation }: any) {
     const { userName,
@@ -32,7 +33,10 @@ function homeScreen({ route, navigation }: any) {
                 marginTop: 20
             }}>{fromCustomer ? 'Customer User' : 'Vendor User'}</Text>
 
-            <Pressable style={styles.callPress}>
+            <Pressable style={styles.callPress}
+                onPress={() => {
+                    displayeNotification()
+                }}>
                 <Text style={styles.callTxt}>Chat</Text>
             </Pressable>
             <Pressable style={styles.callPress}
@@ -44,7 +48,7 @@ function homeScreen({ route, navigation }: any) {
             <Pressable style={styles.logoutPress}
                 onPress={() => {
                     navigation.navigate('login', {
-                         fromLogout: true
+                        fromLogout: true
                     })
                 }}>
                 <Text style={styles.callTxt}>LogOut</Text>
