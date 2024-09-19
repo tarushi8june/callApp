@@ -1,12 +1,5 @@
 import notifee from '@notifee/react-native';
 
-// const notifee = () => {
-
-
-
-// };
-// export default notifee;
-
 export const displayeNotification = async () => {
     await notifee.requestPermission()
 
@@ -18,8 +11,8 @@ export const displayeNotification = async () => {
 
     // Display a notification
     await notifee.displayNotification({
-        title: 'Notification Title',
-        body: 'Main body content of the notification',
+        title: 'Hello',
+        body: 'you have a  notification',
         android: {
             channelId,
             // smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.

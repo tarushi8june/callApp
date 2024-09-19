@@ -1,27 +1,27 @@
 import { useEffect, useState } from "react";
-import { Button, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 
 function login({ route, navigation }: any) {
-    const [mobileNo, setMobileNo] = useState('');
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
+    const [mobileNo, setMobileNo] = useState();
+    const [userName, setUserName] = useState();
+    const [password, setPassword] = useState();
     const [showError, setShowError] = useState<boolean>(false)
 
     useEffect(() => {
         //props
-            setMobileNo('')
-            setPassword('')
-            setUserName('')
-    
+        setMobileNo(undefined)
+        setPassword(undefined)
+        setUserName(undefined)
+
     }, [route])
 
     useEffect(() => {
-        console.log("password 3232", password)
         if (userName != undefined || mobileNo != undefined || password != undefined) {
             setShowError(false)
         }
     }, [password, userName, mobileNo])
+
 
     const renderTxt = (text: any) => {
         return (

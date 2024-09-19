@@ -1,28 +1,31 @@
-import { StyleSheet, Text, View } from "react-native";
-import { ZegoUIKitPrebuiltCall, ONE_ON_ONE_VIDEO_CALL_CONFIG } from '@zegocloud/zego-uikit-prebuilt-call-rn'
+import { ONE_ON_ONE_VIDEO_CALL_CONFIG, ZegoUIKitPrebuiltCall } from '@zegocloud/zego-uikit-prebuilt-call-rn';
+import { StyleSheet, View } from "react-native";
 import { yourAppID, yourAppSign } from "../component/callingId";
 
 function callScreen({ route, navigation }: any) {
-    const{  number,
-        mobileNo}=route.params;
+    const { number,
+        userName } = route.params;
     return (
         <View style={styles.container}>
             <ZegoUIKitPrebuiltCall
                 appID={yourAppID}
-                appSign={yourAppSign} 
-                userID={mobileNo} // userID can be something like a phone number or the user id on your own user system. 
-                userName={number}
+                appSign={yourAppSign}
+                userID={userName}
+                userName={userName}
                 callID={number} // callID can be any unique string. 
 
                 config={{
                     // You can also use ONE_ON_ONE_VOICE_CALL_CONFIG/GROUP_VIDEO_CALL_CONFIG/GROUP_VOICE_CALL_CONFIG to make more types of calls.
                     ...ONE_ON_ONE_VIDEO_CALL_CONFIG,
-                    onCallEnd: (callID, reason, duration) => { navigation.navigate('homeScreen',{
-                        userName:'',
-                        mobileNo:'',
-                        password:'',
-                        fromCustomer:true
-                    }) },
+                    onCallEnd: (callID: any, reason: any, duration: any) => {
+                        navigation.navigate('homeScreen', {
+                            userName: '',
+                            mobileNo: '',
+                            password: '',
+                            fromCustomer: true
+                        })
+                    },
+
                 }}
             />
         </View>

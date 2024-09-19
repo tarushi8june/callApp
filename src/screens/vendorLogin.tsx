@@ -10,7 +10,6 @@ function vendorLogin({ route, navigation }: any) {
     const [showError, setShowError] = useState<boolean>(false)
 
     useEffect(() => {
-        console.log("password 3232", password)
         if (userName != undefined || mobileNo != undefined || password != undefined) {
             setShowError(false)
         }
@@ -93,11 +92,16 @@ function vendorLogin({ route, navigation }: any) {
                 }}>
                 <Text style={styles.loginButtonTxt}>LOGIN</Text>
             </Pressable>
+            <Pressable onPress={() => {
+                navigation.goBack();
+            }}>
+                <Text style={{
+                    fontSize: 18,
+                    color: 'black',
+                    marginTop: 20,
+                    alignSelf: 'center'
 
-            <Pressable >
-                <Text style={styles.vendorTxt}>
-                    Go Back
-                </Text>
+                }}>GO Back</Text>
             </Pressable>
         </View>
     )
@@ -117,7 +121,7 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         width: '80%',
         alignSelf: 'center',
-        color:'black'
+        color: 'black'
     },
     userNameField: {
         height: 45,
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
         marginTop: 2,
         width: '80%',
         alignSelf: 'center',
-        color:'black'
+        color: 'black'
     },
     loginPress: {
         height: 40,

@@ -8,31 +8,18 @@
 
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useEffect } from 'react';
-import type { PropsWithChildren } from 'react';
+import React from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
+  StyleSheet
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import login from './src/screens/login';
-import homeScreen from './src/screens/homeScreen';
-import vendorLogin from './src/screens/vendorLogin';
 import callGenerate from './src/screens/callGenerate';
 import callScreen from './src/screens/callScreen';
-import messaging from '@react-native-firebase/messaging'
+import homeScreen from './src/screens/homeScreen';
+import login from './src/screens/login';
+import CustomerHomeScreen from './src/screens/notification/customerHome';
+import VendorHomeScreen from './src/screens/notification/vendorHome';
+import vendorLogin from './src/screens/vendorLogin';
 
 function App(): React.JSX.Element {
   const MyTheme = {
@@ -47,6 +34,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer theme={MyTheme}>
+
       <Stack.Navigator
         initialRouteName={'login'}>
         <Stack.Screen
@@ -76,6 +64,18 @@ function App(): React.JSX.Element {
         <Stack.Screen
           name="callScreen"
           component={callScreen}
+          options={{ presentation: 'modal', headerShown: false }} // Modal presentation style
+
+        />
+        <Stack.Screen
+          name="VendorHomeScreen"
+          component={VendorHomeScreen}
+          options={{ presentation: 'modal', headerShown: false }} // Modal presentation style
+
+        />
+        <Stack.Screen
+          name="CustomerHomeScreen"
+          component={CustomerHomeScreen}
           options={{ presentation: 'modal', headerShown: false }} // Modal presentation style
 
         />
