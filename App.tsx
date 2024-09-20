@@ -20,6 +20,8 @@ import login from './src/screens/login';
 import CustomerHomeScreen from './src/screens/notification/customerHome';
 import VendorHomeScreen from './src/screens/notification/vendorHome';
 import vendorLogin from './src/screens/vendorLogin';
+import signup from './src/screens/signup';
+import chat from './src/screens/notification/chat';
 
 function App(): React.JSX.Element {
   const MyTheme = {
@@ -36,7 +38,12 @@ function App(): React.JSX.Element {
     <NavigationContainer theme={MyTheme}>
 
       <Stack.Navigator
-        initialRouteName={'login'}>
+        initialRouteName={'signup'}>
+        <Stack.Screen
+          name="signup"
+          component={signup}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="login"
           component={login}
@@ -76,7 +83,13 @@ function App(): React.JSX.Element {
         <Stack.Screen
           name="CustomerHomeScreen"
           component={CustomerHomeScreen}
-          options={{ presentation: 'modal', headerShown: false }} // Modal presentation style
+          options={{ presentation: 'modal', headerShown: true }} // Modal presentation style
+
+        />
+        <Stack.Screen
+          name="chat"
+          component={chat}
+          options={{ presentation: 'modal', headerShown: true }} // Modal presentation style
 
         />
 

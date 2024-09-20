@@ -1,60 +1,34 @@
-import { useEffect, useId, useState } from "react";
-import { Alert, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import firestore from '@react-native-firebase/firestore';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import uuid from 'react-native-uuid';
 
-function login({ route, navigation }: any) {
+
+function signup({ route, navigation }: any) {
     const [mobileNo, setMobileNo] = useState('');
+    const [userName, setUserName] = useState();
     const [password, setPassword] = useState();
+    const [showError, setShowError] = useState<boolean>(false)
 
-    const loginUser = () => {
-        firestore()
-            .collection('users')
-            .where('number', '==', mobileNo)
-            .get()
-            .then(res => {
-                if (res.docs) {
-                    console.log("loginuser res 000000", res.docs)
-                    console.log("loginuser res 2323232", res)
-                    res.docs.map(e => {
-                        console.log("MAP data 1111111", e.data)
-                        console.log("MAP data 0000", e.data.number)
-                        console.log("MAP data 8888", e.data.name)
-                        console.log("MAP data 9999", e.data.userId)
-                        let data = e.data();
-                        console.log("MAP data 0987655", data)
-
-                        gotoNext(data.name, data.number, data.userId)
-                    })
-
-                } else {
-                    Alert.alert("User Not Found")
-                    console.log("loginuser res 111111", JSON.stringify(res.docs))
-                }
-            })
-            .catch(err => {
-                Alert.alert("An error occurred. Please try again.");
+    const registerUser = () => {
+        const userId: any = uuid.v4()
+        firestore().collection("users")
+            .doc(userId)
+            .set({
+                name: userName,
+                number: mobileNo,
+                password: password,
+                userId: userId
+            }).then(res => {
+                navigation.navigate('login')
             })
     };
 
-
-    const gotoNext = async (name: any, number: any, userId: any) => {
-        await AsyncStorage.setItem('Name', name)
-        await AsyncStorage.setItem('Number', number)
-        await AsyncStorage.setItem('userId', userId)
-        navigation.navigate('homeScreen', {
-            userName: '',
-            mobileNo: 'number',
-            password: '',
-            fromCustomer: true
-        })
-    }
-
     useEffect(() => {
-        //props
-        setMobileNo('')
-        setPassword(undefined)
-    }, [route])
+        if (userName != undefined || mobileNo != undefined || password != undefined) {
+            setShowError(false)
+        }
+    }, [password, userName, mobileNo])
 
 
     const renderTxt = (text: any) => {
@@ -67,10 +41,27 @@ function login({ route, navigation }: any) {
         return <Text style={styles.renderErrorTxt}>{text}</Text>
     }
 
+
     return (
         <View>
-            <Text style={styles.loginTxt}>Customer Login</Text>
+            <Text style={styles.loginTxt}>SignUp</Text>
+
             <View style={styles.inputView}>
+                <View style={styles.container}>
+                    {renderTxt('Username')}
+                    <TextInput
+                        value={userName}
+                        style={styles.userNameField}
+                        onChangeText={(value: any) => {
+                            setUserName(value)
+                        }}
+                        placeholder="Type Your UserName"
+                        maxLength={25}
+
+                    />
+                    {showError && renderError('Please Fill Username')}
+                </View>
+
                 <View style={styles.container}>
                     {renderTxt('Mobile No.')}
                     <TextInput
@@ -82,6 +73,7 @@ function login({ route, navigation }: any) {
                         keyboardType="numeric"
                         placeholder="Type Your Mobile No."
                         maxLength={10} />
+                    {showError && renderError('Please Fill MobileNo.')}
                 </View>
 
                 <View style={styles.container}>
@@ -94,48 +86,36 @@ function login({ route, navigation }: any) {
                         }}
                         placeholder="Type Your Password"
                         maxLength={10} />
+                    {showError && renderError('Please Fill Password')}
 
                 </View>
             </View>
 
             <Pressable style={[styles.loginPress, {
-                backgroundColor: mobileNo == undefined && password == undefined ? 'gray' : 'blue',
+                backgroundColor: userName == '' && mobileNo == undefined && password == undefined ? 'gray' : 'blue',
             }]}
-                disabled={mobileNo == undefined ? true : false}
+                disabled={userName == '' && mobileNo == undefined ? true : false}
                 onPress={() => {
-
-                    loginUser()
-
-                    // navigation.navigate('homeScreen', {
-                    //     userName: userName,
-                    //     mobileNo: mobileNo,
-                    //     password: password,
-                    //     fromCustomer: true
-                    // })
-
+                    if (userName == undefined || mobileNo == undefined || password == undefined) {
+                        setShowError(true)
+                    } else {
+                        setShowError(false);
+                        registerUser()
+                    }
                 }}>
-                <Text style={styles.loginButtonTxt}>LOGIN</Text>
+                <Text style={styles.loginButtonTxt}>SignUp</Text>
+            </Pressable>
+            <Pressable onPress={() => {
+                navigation.navigate('login')
+            }}>
+                <Text style={styles.loginTitle}>or Login</Text>
             </Pressable>
 
-            <Pressable onPress={() => {
-                navigation.navigate('vendorLogin')
-            }}>
-                <Text style={styles.vendorTxt}>
-                    or Login For Vendor
-                </Text>
-            </Pressable>
-            <Pressable onPress={() => {
-                navigation.goBack()
-            }}>
-                <Text style={styles.goBackTxt}>
-                    or GoBack
-                </Text>
-            </Pressable>
         </View>
     )
-};
+}
+export default signup;
 
-export default login;
 const styles = StyleSheet.create({
     loginTxt: {
         color: 'black',
@@ -196,10 +176,11 @@ const styles = StyleSheet.create({
         marginTop: 2,
         marginLeft: 40
     },
-    goBackTxt: {
-        justifyContent: 'center',
+
+    loginTitle: {
+        fontSize: 20,
+        color: 'black',
         textAlign: 'center',
-        marginTop: 10,
-        color: 'black'
+        marginTop: 20
     }
 })
